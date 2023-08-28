@@ -7,12 +7,12 @@ from array import array
 # initializing array with array values
 # initializes array with signed integers
 # size of 3 O(n)
-int_arr = array('i', [1, 2, 3])
+int_arr = array("i", [1, 2, 3])
 
 # printing original array
-print ("The new created array is : ",end=" ")
-for i in range (0, 3):
-	print (int_arr[i], end=" ")
+print("The new created array is : ", end=" ")
+for i in range(0, 3):
+    print(int_arr[i], end=" ")
 
 print("\r")
 
@@ -42,9 +42,9 @@ int_arr.append(4)
 
 # printing appended array
 print("The appended array is : ", end="")
-for i in range (0, 4):
-	print (int_arr[i], end=" ")
-	
+for i in range(0, 4):
+    print(int_arr[i], end=" ")
+
 # using insert() to insert value at specific position
 # inserts 5 at 2nd position O(n)
 int_arr.insert(2, 5)
@@ -52,39 +52,39 @@ int_arr.insert(2, 5)
 print("\r")
 
 # printing array after insertion
-print ("The array after insertion is : ", end="")
-for i in range (0, 5):
-	print (int_arr[i], end=" ")
- 
+print("The array after insertion is : ", end="")
+for i in range(0, 5):
+    print(int_arr[i], end=" ")
+
 print("\r")
 
 # using pop() to remove element at 2nd position O(1)
-print ("The popped element is : ",end="")
-print (int_arr.pop(2))
- 
+print("The popped element is : ", end="")
+print(int_arr.pop(2))
+
 # printing array after popping
-print ("The array after popping is : ",end="")
-for i in range (0,4):
-    print (int_arr[i],end=" ")
- 
+print("The array after popping is : ", end="")
+for i in range(0, 4):
+    print(int_arr[i], end=" ")
+
 print("\r")
- 
+
 # using remove() to remove 1st occurrence of 1 O(n)
 int_arr.remove(1)
 
-print ("\r")
- 
+print("\r")
+
 # using index() to print index of 1st occurrence of 2 O(1)
-print ("The index of 1st occurrence of 2 is : ",end="")
-print (int_arr.index(2))
- 
-#using reverse() to reverse the array O(n)
+print("The index of 1st occurrence of 2 is : ", end="")
+print(int_arr.index(2))
+
+# using reverse() to reverse the array O(n)
 int_arr.reverse()
- 
+
 # printing array after removing
-print ("The array after removing is : ",end="")
-for i in range (0,3):
-    print (int_arr[i],end=" ")
+print("The array after removing is : ", end="")
+for i in range(0, 3):
+    print(int_arr[i], end=" ")
 
 print("\r")
 
@@ -93,17 +93,59 @@ print("\r")
 print("Array:", int_arr)
 
 #
-# 
-# 
-# 
+#
+#
+#
 
 # two-dimensional array
-two_dim_array = [array('i', [1, 2, 3]), array('i', [4, 1, 3]), array('i', [1, 2, 3]), array('i', [1, 2, 3])]
+two_dim_array = [
+    array("i", [1, 2, 3]),
+    array("i", [4, 1, 3]),
+    array("i", [1, 2, 3]),
+    array("i", [1, 2, 3]),
+]
 
 for i in range(0, len(two_dim_array)):
     # static row length to prevent memory outbound, python doesn't show error on creation
-	for j in range(0, len(two_dim_array[1])):
-		print(two_dim_array[i][j], end = ' ')
-	print('\n')
+    for j in range(0, len(two_dim_array[1])):
+        print(two_dim_array[i][j], end=" ")
+    print("\n")
 
-print('Array 2D:', two_dim_array)
+print("Array 2D:", two_dim_array)
+
+#
+#
+#
+#
+
+# three-dimensional array
+three_dim_array = [
+    [
+        array("i", [1, 2, 3]),
+        array("i", [4, 1, 3]),
+        array("i", [1, 2, 3]),
+        array("i", [1, 2, 3]),
+    ],
+    [
+        array("i", [1, 2, 3]),
+        array("i", [4, 1, 3]),
+        array("i", [1, 2, 3]),
+        array("i", [1, 2, 3]),
+    ],
+    [
+        array("i", [1, 2, 3]),
+        array("i", [4, 1, 3]),
+        array("i", [1, 2, 3]),
+        array("i", [1, 2, 3]),
+    ]
+]
+
+for i in range(0, len(three_dim_array)):
+    # static row length to prevent memory outbound, python doesn't show error on creation
+	for j in range(0, len(three_dim_array[1])):
+		for k in range (0, len(three_dim_array[1][1])):
+			print(three_dim_array[i][j][k], end=" ")
+		print("\n")
+	print("\n")
+
+print("Array 3D:", three_dim_array)
