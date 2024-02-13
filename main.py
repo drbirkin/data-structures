@@ -1,151 +1,101 @@
-# Python code to demonstrate the working of
-# array(), append(), insert()
-# https://www.geeksforgeeks.org/python-arrays/
-# importing "array" for array operations
-from array import array
+# https://stackabuse.com/courses/graphs-in-python-theory-and-implementation/lessons/representing-graphs-in-code/
 
-# initializing array with array values
-# initializes array with signed integers
-# size of 3 O(n)
-int_arr = array("i", [1, 2, 3])
+class Graph_List_Edges:
+    # Constructor
+    def __init__(self, num_of_nodes, directed=True):
+        self.m_num_of_nodes = num_of_nodes
+        self.m_directed = directed
+        
+        # Different representations of a graph
+        self.m_list_of_edges = []
+	
+    # Add edge to a graph
+    def add_edge(self, node1, node2, weight=1):        
+        # Add the edge from node1 to node2
+        self.m_list_of_edges.append([node1, node2, weight])
+        
+        # If a graph is undirected, add the same edge,
+        # but also in the opposite direction
+        if not self.m_directed:
+            self.m_list_of_edges.append([node1, node2, weight])
 
-# printing original array
-print("The new created array is : ", end=" ")
-for i in range(0, 3):
-    print(int_arr[i], end=" ")
+	# Print a graph representation
+    def print_edge_list(self):
+        num_of_edges = len(self.m_list_of_edges)
+        for i in range(num_of_edges):
+            print("edge ", i+1, ": ", self.m_list_of_edges[i])
+            
+class Graph_Matrix:
+    def __init__(self, num_of_nodes, directed=True):
+        self.m_num_of_nodes = num_of_nodes
+        self.m_directed = directed
 
-print("\r")
+        # Initialize the adjacency matrix
+        # Create a matrix with `num_of_nodes` rows and columns
+        self.m_adj_matrix = [[0 for column in range(num_of_nodes)] 
+                            for row in range(num_of_nodes)]
 
-# using append() to insert new value at end O(n)
+    def add_edge(self, node1, node2, weight=1):
+        self.m_adj_matrix[node1][node2] = weight
 
-# 1. Check Available Space:
+        if not self.m_directed:
+            self.m_adj_matrix[node2][node1] = weight
 
-# The module checks if there is enough space in the allocated memory for the new element. If there is enough space, it can directly add the new element. If not, it needs to allocate more memory.
-# Allocate More Memory (if needed):
+    def print_adj_matrix(self):
+        print(self.m_adj_matrix)
+        
+class Graph_List:
+    def __init__(self, num_of_nodes, directed=True):
+        self.m_num_of_nodes = num_of_nodes
+        self.m_nodes = range(self.m_num_of_nodes)
 
-# If there is not enough space to add the new element, the module allocates a larger chunk of memory to store the elements. This new memory chunk is typically larger than the previous one to reduce the frequency of reallocations.
-# 2. Copy Existing Elements:
+        # Define the type of a graph
+        self.m_directed = directed
 
-# The module copies the existing elements from the old memory chunk to the new one. This copying process ensures that the data is preserved during the reallocation.
-# 3. Add New Element:
+        self.m_adj_list = {node: set() for node in self.m_nodes}      
 
-# The new element is added to the end of the array in the new memory chunk.
-# 4. Update Internal Metadata:
+    def add_edge(self, node1, node2, weight=1):
+        self.m_adj_list[node1].add((node2, weight))
+        
+        if not self.m_directed:
+        	self.m_adj_list[node2].add((node1, weight))
+    
+    def print_adj_list(self):
+        for key in self.m_adj_list.keys():
+            print("node", key, ": ", self.m_adj_list[key])
+            
+graph = Graph_List_Edges(5)
 
-# The array module updates its internal metadata, such as the size of the allocated memory and the number of elements.
-# 5. Release Old Memory (if applicable):
+graph.add_edge(0, 0, 25)
+graph.add_edge(0, 1, 5)
+graph.add_edge(0, 2, 3)
+graph.add_edge(1, 3, 1)
+graph.add_edge(1, 4, 15)
+graph.add_edge(4, 2, 7)
+graph.add_edge(4, 3, 11)
 
-# The old memory chunk is no longer needed and can be released to the system to free up resources.
-# TODO: show errors and bugs during those steps behind the scene
+graph.print_edge_list()
 
-int_arr.append(4)
+graph = Graph_Matrix(5)
 
-# printing appended array
-print("The appended array is : ", end="")
-for i in range(0, 4):
-    print(int_arr[i], end=" ")
+graph.add_edge(0, 0, 25)
+graph.add_edge(0, 1, 5)
+graph.add_edge(0, 2, 3)
+graph.add_edge(1, 3, 1)
+graph.add_edge(1, 4, 15)
+graph.add_edge(4, 2, 7)
+graph.add_edge(4, 3, 11)
 
-# using insert() to insert value at specific position
-# inserts 5 at 2nd position O(n)
-int_arr.insert(2, 5)
+graph.print_adj_matrix()
 
-print("\r")
+graph = Graph_List(5)
 
-# printing array after insertion
-print("The array after insertion is : ", end="")
-for i in range(0, 5):
-    print(int_arr[i], end=" ")
+graph.add_edge(0, 0, 25)
+graph.add_edge(0, 1, 5)
+graph.add_edge(0, 2, 3)
+graph.add_edge(1, 3, 1)
+graph.add_edge(1, 4, 15)
+graph.add_edge(4, 2, 7)
+graph.add_edge(4, 3, 11)
 
-print("\r")
-
-# using pop() to remove element at 2nd position O(1)
-print("The popped element is : ", end="")
-print(int_arr.pop(2))
-
-# printing array after popping
-print("The array after popping is : ", end="")
-for i in range(0, 4):
-    print(int_arr[i], end=" ")
-
-print("\r")
-
-# using remove() to remove 1st occurrence of 1 O(n)
-int_arr.remove(1)
-
-print("\r")
-
-# using index() to print index of 1st occurrence of 2 O(1)
-print("The index of 1st occurrence of 2 is : ", end="")
-print(int_arr.index(2))
-
-# using reverse() to reverse the array O(n)
-int_arr.reverse()
-
-# printing array after removing
-print("The array after removing is : ", end="")
-for i in range(0, 3):
-    print(int_arr[i], end=" ")
-
-print("\r")
-
-
-# Displaying the array
-print("Array:", int_arr)
-
-#
-#
-#
-#
-
-# two-dimensional array
-two_dim_array = [
-    array("i", [1, 2, 3]),
-    array("i", [4, 1, 3]),
-    array("i", [1, 2, 3]),
-    array("i", [1, 2, 3]),
-]
-
-for i in range(0, len(two_dim_array)):
-    # static row length to prevent memory outbound, python doesn't show error on creation
-    for j in range(0, len(two_dim_array[1])):
-        print(two_dim_array[i][j], end=" ")
-    print("\n")
-
-print("Array 2D:", two_dim_array)
-
-#
-#
-#
-#
-
-# three-dimensional array
-three_dim_array = [
-    [
-        array("i", [1, 2, 3]),
-        array("i", [4, 1, 3]),
-        array("i", [1, 2, 3]),
-        array("i", [1, 2, 3]),
-    ],
-    [
-        array("i", [1, 2, 3]),
-        array("i", [4, 1, 3]),
-        array("i", [1, 2, 3]),
-        array("i", [1, 2, 3]),
-    ],
-    [
-        array("i", [1, 2, 3]),
-        array("i", [4, 1, 3]),
-        array("i", [1, 2, 3]),
-        array("i", [1, 2, 3]),
-    ]
-]
-
-for i in range(0, len(three_dim_array)):
-    # static row length to prevent memory outbound, python doesn't show error on creation
-	for j in range(0, len(three_dim_array[1])):
-		for k in range (0, len(three_dim_array[1][1])):
-			print(three_dim_array[i][j][k], end=" ")
-		print("\n")
-	print("\n")
-
-print("Array 3D:", three_dim_array)
+graph.print_adj_list()
